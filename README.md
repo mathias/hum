@@ -3,7 +3,13 @@
 A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to create audio, synthesizers, mostly noise, and maybe someday music.
 
 ## Usage
+Add this to your requires in `project.clj`:
 
+```clojure
+  [hum "0.1.0-SNAPSHOT"]
+```
+
+Here's an example:
 ```clojure
 (ns myapp.core
   (:require [hum.core :as hum])
@@ -16,7 +22,7 @@ A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to
 (hum/connect vco vcf)
 (hum/connect vcf output)
 
-(set! (.-value (.-gain output)) 0)
+(hum/setGainTo output 0)
 (set! (.-type vco) (.-SAWTOOTH vco))
 
 (hum/start-osc ctx vco)
