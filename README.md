@@ -23,7 +23,7 @@ A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to
 
 (hum/connect output (.-destination ctx))
 
-(hum/note-on ctx output vco 400)
+(hum/note-on ctx output vco 440)
 ```
 
 ## License
