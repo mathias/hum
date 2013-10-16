@@ -15,7 +15,7 @@ Here's an example:
   (:require [hum.core :as hum])
 
 (def ctx (hum/create-context))
-(def vco (hum/create-osc ctx))
+(def vco (hum/create-osc ctx :sawtooth))
 (def vcf (hum/create-biquad-filter ctx))
 (def output (hum/create-gain ctx))
 
@@ -23,8 +23,6 @@ Here's an example:
 (hum/connect vcf output)
 
 (hum/setGainTo output 0)
-(set! (.-type vco) (.-SAWTOOTH vco))
-
 (hum/start-osc ctx vco)
 
 (hum/connect output (.-destination ctx))
