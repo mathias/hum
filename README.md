@@ -22,7 +22,7 @@ Here's an example:
 (hum/connect vco vcf)
 (hum/connect vcf output)
 
-(hum/setGainTo output 0)
+(hum/set-gain-to output 0)
 (hum/start-osc ctx vco)
 
 (hum/connect output (.-destination ctx))

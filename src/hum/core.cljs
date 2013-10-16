@@ -38,8 +38,8 @@
 (defn start-osc [ctx osc]
   (.start osc (curr-time ctx)))
 
-(defn setGainTo [output val]
-  (set! (.-value (.-gain output)) val))
+(defn set-gain-to [channel val]
+  (set! (.-value (.-gain channel)) val))
 
 (defn note-on [ctx output osc freq & time]
   (let [time (or time (curr-time ctx))]
