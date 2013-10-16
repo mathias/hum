@@ -6,7 +6,7 @@ A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to
 Add this to your requires in `project.clj`:
 
 ```clojure
-  [hum "0.2.0"]
+  [hum "0.2.1"]
 ```
 
 Here's an example:
