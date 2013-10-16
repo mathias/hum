@@ -6,7 +6,7 @@ A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to
 Add this to your requires in `project.clj`:
 
 ```clojure
-  [hum "0.2.1"]
+  [hum "0.2.2"]
 ```
 
 Here's an example:
@@ -22,7 +22,6 @@ Here's an example:
 (hum/connect vco vcf)
 (hum/connect vcf output)
 
-(hum/set-gain-to output 0)
 (hum/start-osc ctx vco)
 
 (hum/connect output (.-destination ctx))

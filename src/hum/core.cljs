@@ -16,8 +16,13 @@
        (set! (.-type osc) osc-type)
        osc)))
 
-(defn create-gain [ctx]
-  (let [gain (.createGain ctx)]
+(defn set-gain-to [channel val]
+  (set! (.-value (.-gain channel)) val))
+
+(defn create-gain [ctx & level]
+  (let [gain (.createGain ctx)
+        level (and level 0)]
+    (set-gain-to gain level)
     gain))
 
 (defn create-biquad-filter [ctx]
@@ -37,9 +42,6 @@
 
 (defn start-osc [ctx osc]
   (.start osc (curr-time ctx)))
-
-(defn set-gain-to [channel val]
-  (set! (.-value (.-gain channel)) val))
 
 (defn note-on [ctx output osc freq & time]
   (let [time (or time (curr-time ctx))]
