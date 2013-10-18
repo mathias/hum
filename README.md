@@ -29,6 +29,10 @@ Here's an example:
 (hum/note-on ctx output vco 440)
 ```
 
+## What now? / Contributing
+
+If you are using `hum` in your app, I'd love to hear about it. If you want to suggest functionality, then please submit an Issue, or even better, a Pull Request! I'd like to build up an API of functions that people find useful for making music and software instruments, but I'll need your help to get there. Thanks in advance!
+
 ## License
 
 Copyright © 2013 Matt Gauger.
