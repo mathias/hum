@@ -2,6 +2,10 @@
 
 A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to create audio, synthesizers, mostly noise, and maybe someday music.
 
+## Demo
+
+Check out a simple synth demo and code that was used to make it: [http://blog.mattgauger.com/hum](http://blog.mattgauger.com/hum)
+
 ## Usage
 Add this to your requires in `project.clj`:
 
