@@ -1,4 +1,4 @@
-(defproject hum "0.2.3"
+(defproject hum "0.2.4"
   :description "Some wrappers around the Web Audio API"
   :url "http://github.com/mathias/hum"
   :license {:name "Eclipse Public License"

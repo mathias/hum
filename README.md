@@ -10,7 +10,7 @@ Check out a simple synth demo and code that was used to make it: [http://blog.ma
 Add this to your requires in `project.clj`:
 
 ```clojure
-  [hum "0.2.3"]
+  [hum "0.2.4"]
 ```
 
 Here's an example:
