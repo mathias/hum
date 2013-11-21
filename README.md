@@ -10,7 +10,7 @@ Check out a simple synth demo and code that was used to make it: [http://blog.ma
 Add this to your requires in `project.clj`:
 
 ```clojure
-  [hum "0.2.2"]
+  [hum "0.2.3"]
 ```
 
 Here's an example:
@@ -28,7 +28,7 @@ Here's an example:
 
 (hum/start-osc ctx vco)
 
-(hum/connect output (.-destination ctx))
+(hum/connect-output ctx output)
 
 (hum/note-on ctx output vco 440)
 ```

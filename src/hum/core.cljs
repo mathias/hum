@@ -33,6 +33,9 @@
   (.connect from to)
   from)
 
+(defn connect-output [ctx output]
+  (hum/connect output (.-destination ctx)))
+
 (defn freq [filter]
   (.-frequency filter)
   filter)
