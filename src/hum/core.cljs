@@ -57,4 +57,6 @@
     (.linearRampToValueAtTime (.-gain output) 0.0 (+ time 0.1))))
 
 (defn create-context []
-  (js/webkitAudioContext.))
+  (let [constructor (or js/window.AudioContext
+                        js/window.webkitAudioContext)]
+    (constructor.)))
