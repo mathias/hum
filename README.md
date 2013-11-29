@@ -1,6 +1,8 @@
 # hum
 
-A ClojureScript attempt at wrapping some of the HTML5 Web Audio API functions to create audio, synthesizers, mostly noise, and maybe someday music.
+A ClojureScript library wrapping some of the HTML5 Web Audio API functions to create audio, synthesizers, and maybe someday music.
+
+Hum is now known to work on both Webkit and Firefox browsers.
 
 ## Demo
 
