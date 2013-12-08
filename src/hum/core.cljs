@@ -33,8 +33,8 @@
   (.connect from to)
   from)
 
-(defn connect-output [ctx output]
-  (.connect output (.-destination ctx))
+(defn connect-output [output]
+  (.connect output (.-destination (ctx-for output)))
   output)
 
 (defn freq [filter]
@@ -44,16 +44,19 @@
 (defn curr-time [ctx]
   (.-currentTime ctx))
 
-(defn start-osc [ctx osc]
-  (.start osc (curr-time ctx)))
+(defn ctx-for [audio-node]
+  (.context audio-node))
 
-(defn note-on [ctx output osc freq & time]
-  (let [time (or time (curr-time ctx))]
+(defn start-osc [osc]
+  (.start osc (curr-time (ctx-for osc))))
+
+(defn note-on [output osc freq & time]
+  (let [time (or time (curr-time (ctx-for osc)))]
     (.setValueAtTime (.-frequency osc) freq time)
     (.linearRampToValueAtTime (.-gain output) 1.0 (+ time 0.1))))
 
-(defn note-off [ctx output & time]
-  (let [time (or time (curr-time ctx))]
+(defn note-off [output & time]
+  (let [time (or time (curr-time (ctx-for osc)))]
     (.linearRampToValueAtTime (.-gain output) 0.0 (+ time 0.1))))
 
 (defn create-context []
