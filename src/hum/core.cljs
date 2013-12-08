@@ -19,11 +19,13 @@
 (defn set-gain-to [channel val]
   (set! (.-value (.-gain channel)) val))
 
-(defn create-gain [ctx & level]
-  (let [gain (.createGain ctx)
-        level (and level 0)]
-    (set-gain-to gain level)
-    gain))
+(defn create-gain
+  ([ctx]
+     (create-gain ctx 0))
+  ([ctx level]
+     (let [gain (.createGain ctx)]
+       (set-gain-to gain level)
+       gain)))
 
 (defn create-biquad-filter [ctx]
   (let [filter (.createBiquadFilter ctx)]
@@ -45,19 +47,27 @@
   (.-currentTime ctx))
 
 (defn ctx-for [audio-node]
-  (.context audio-node))
+  (.-context audio-node))
 
 (defn start-osc [osc]
   (.start osc (curr-time (ctx-for osc))))
 
-(defn note-on [output osc freq & time]
-  (let [time (or time (curr-time (ctx-for osc)))]
+(defn note-on
+  ([output osc freq]
+     (note-on output osc freq (curr-time (ctx-for osc))))
+  ([output osc freq time]
+     (note-on output osc freq time (+ time 0.1)))
+  ([output osc freq time offset-time]
     (.setValueAtTime (.-frequency osc) freq time)
-    (.linearRampToValueAtTime (.-gain output) 1.0 (+ time 0.1))))
+    (.linearRampToValueAtTime (.-gain output) 1.0 offset-time)))
 
-(defn note-off [output & time]
-  (let [time (or time (curr-time (ctx-for osc)))]
-    (.linearRampToValueAtTime (.-gain output) 0.0 (+ time 0.1))))
+(defn note-off
+  ([output]
+     (note-off output (curr-time (ctx-for output))))
+  ([output time]
+     (note-off output time (+ time 0.1)))
+  ([output time offset-time]
+     (.linearRampToValueAtTime (.-gain output) 0.0 offset-time)))
 
 (defn create-context []
   (let [constructor (or js/window.AudioContext
