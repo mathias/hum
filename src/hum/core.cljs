@@ -55,7 +55,7 @@
 (defn note-on
   ([output osc freq]
      (note-on output osc freq {:time (curr-time (ctx-for osc))}))
-  ([output osc freq {:keys [time ramp-time] :as params}]
+  ([output osc freq {:keys [time ramp-time]}]
      (let [ramp-time (or ramp-time (+ time 0.1))]
        (.setValueAtTime (.-frequency osc) freq time)
        (.linearRampToValueAtTime (.-gain output) 1.0 ramp-time))))
@@ -63,7 +63,7 @@
 (defn note-off
   ([output]
      (note-off output {:time (curr-time (ctx-for output))}))
-  ([output {:keys [time ramp-time] :as params}]
+  ([output {:keys [time ramp-time]}]
      (let [ramp-time (or ramp-time (+ time 0.1))]
        (.linearRampToValueAtTime (.-gain output) 0.0 ramp-time))))
 
