@@ -53,19 +53,17 @@
   (.start osc (curr-time (ctx-for osc))))
 
 (defn note-on
-  ([output osc freq]
-     (note-on output osc freq {:time (curr-time (ctx-for osc))}))
-  ([output osc freq {:keys [time ramp-time]}]
-     (let [ramp-time (or ramp-time (+ time 0.1))]
-       (.setValueAtTime (.-frequency osc) freq time)
-       (.linearRampToValueAtTime (.-gain output) 1.0 ramp-time))))
+  [output osc freq & {:keys [time ramp-time]
+                      :or {time (curr-time (ctx-for osc))
+                           ramp-time 0.1}}]
+  (.setValueAtTime (.-frequency osc) freq time)
+  (.linearRampToValueAtTime (.-gain output) 1.0 (+ time ramp-time)))
 
 (defn note-off
-  ([output]
-     (note-off output {:time (curr-time (ctx-for output))}))
-  ([output {:keys [time ramp-time]}]
-     (let [ramp-time (or ramp-time (+ time 0.1))]
-       (.linearRampToValueAtTime (.-gain output) 0.0 ramp-time))))
+  [output & {:keys [time ramp-time]
+             :or {time (curr-time (ctx-for output))
+                  ramp-time 0.1}}]
+  (.linearRampToValueAtTime (.-gain output) 0.0 (+ time ramp-time)))
 
 (defn create-context []
   (let [constructor (or js/window.AudioContext
