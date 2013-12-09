@@ -35,6 +35,9 @@
   (.connect from to)
   from)
 
+(defn ctx-for [audio-node]
+  (.-context audio-node))
+
 (defn connect-output [output]
   (.connect output (.-destination (ctx-for output)))
   output)
@@ -45,9 +48,6 @@
 
 (defn curr-time [ctx]
   (.-currentTime ctx))
-
-(defn ctx-for [audio-node]
-  (.-context audio-node))
 
 (defn start-osc [osc]
   (.start osc (curr-time (ctx-for osc))))
