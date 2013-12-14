@@ -2,6 +2,8 @@
 
 A ClojureScript library wrapping some of the HTML5 Web Audio API functions to create audio, synthesizers, and maybe someday music.
 
+## Browser support
+
 Hum is now known to work on both Webkit and Firefox browsers.
 
 ## Demo
@@ -12,7 +14,7 @@ Check out a simple synth demo and code that was used to make it: [http://blog.ma
 Add this to your requires in `project.clj`:
 
 ```clojure
-  [hum "0.2.4"]
+  [hum "0.3.0"]
 ```
 
 Here's an example:
@@ -28,11 +30,11 @@ Here's an example:
 (hum/connect vco vcf)
 (hum/connect vcf output)
 
-(hum/start-osc ctx vco)
+(hum/start-osc vco)
 
-(hum/connect-output ctx output)
+(hum/connect-output output)
 
-(hum/note-on ctx output vco 440)
+(hum/note-on output vco 440)
 ```
 
 ## What now? / Contributing
