@@ -1,18 +1,11 @@
 (ns hum.core)
 
-(defn get-osc-type [osc type]
-  (condp = type
-    :sawtooth (.-SAWTOOTH osc)
-    :sine (.-SINE osc)
-    :square (.-SQUARE osc)
-    :triangle (.-TRIANGLE osc)))
-
 (defn create-osc
   ([ctx]
      (.createOscillator ctx))
   ([ctx type]
      (let [osc (.createOscillator ctx)
-           osc-type (get-osc-type osc type)]
+           osc-type (name type)]
        (set! (.-type osc) osc-type)
        osc)))
 
