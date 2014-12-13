@@ -24,9 +24,10 @@
   (let [filter (.createBiquadFilter ctx)]
     filter))
 
-(defn connect [from to]
-  (.connect from to)
-  from)
+(defn connect [& nodes]
+  (doall 
+    (map (fn [[a b]] (.connect a b)) 
+         (partition 2 1 nodes))))
 
 (defn ctx-for [audio-node]
   (.-context audio-node))
