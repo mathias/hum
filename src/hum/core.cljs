@@ -20,10 +20,6 @@
        (set-gain-to gain level)
        gain)))
 
-(defn create-biquad-filter [ctx]
-  (let [filter (.createBiquadFilter ctx)]
-    filter))
-
 (defn set-buffer-to [buffer-src buffer]
   (set! (.-buffer buffer-src) buffer))
 
@@ -42,6 +38,10 @@
 
 (defn create-dynamics-compressor [ctx]
   (.createDynamicsCompressor ctx))
+
+(defn create-biquad-filter [ctx]
+  (let [filter (.createBiquadFilter ctx)]
+    filter))
 
 (defn connect [from to]
   (.connect from to)
