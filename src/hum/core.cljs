@@ -9,6 +9,13 @@
        (set! (.-type osc) osc-type)
        osc)))
 
+(defn set-param! 
+  "Allow setting of AudioNode's AudioParam attributes.
+  
+  eg. (set-param! gain-node :gain 0.5)"
+  [node param value]
+  (set! (aget node (name param) "value") value))
+
 (defn set-gain-to [channel val]
   (set! (.-value (.-gain channel)) val))
 
