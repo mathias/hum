@@ -23,9 +23,9 @@
 (defn set-buffer-to [buffer-src buffer]
   (set! (.-buffer buffer-src) buffer))
 
-(defn create-buffer-source 
+(defn create-buffer-source
   ([ctx] (.createBufferSource ctx))
-  ([ctx buffer] 
+  ([ctx buffer]
    (let [buffer-src (create-buffer-source ctx)]
      (set-buffer-to buffer-src buffer)
      buffer-src)))
