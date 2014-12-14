@@ -22,19 +22,30 @@ Here's an example:
 (ns myapp.core
   (:require [hum.core :as hum])
 
+; create a WebAudio contet
 (def ctx (hum/create-context))
+
+; create an oscilator, filter and amp
 (def vco (hum/create-osc ctx :sawtooth))
 (def vcf (hum/create-biquad-filter ctx))
-(def output (hum/create-gain ctx))
+(def amp (hum/create-gain ctx))
 
-; connect the VCO to the VCF and on to the output gain node
-(hum/connect vco vcf output)
+; connect them together in series
+(hum/connect vco vcf amp)
 
+; start the oscilator
 (hum/start-osc vco)
 
-(hum/connect-output output)
+; connect the amp to speakers
+(hum/connect-output amp)
 
-(hum/note-on output vco 440)
+; set envelope for filter
+(hum/set-value-at vcf :frequency 100 (+ (hum/curr-time ctx) 0))
+(hum/linear-fade vcf :frequency 1000 (+ (hum/curr-time ctx) 10))
+
+; set envelope for amp
+(hum/set-value-at amp :gain 1 (+ (hum/curr-time ctx) 0))
+(hum/linear-fade amp :gain 0 (+ (hum/curr-time ctx) 10))
 ```
 
 ## What now? / Contributing
