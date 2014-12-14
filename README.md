@@ -14,7 +14,7 @@ Check out a simple synth demo and code that was used to make it: [http://blog.ma
 Add this to your requires in `project.clj`:
 
 ```clojure
-  [hum "0.3.0"]
+  [hum "0.4.0"]
 ```
 
 Here's an example:
@@ -27,8 +27,8 @@ Here's an example:
 (def vcf (hum/create-biquad-filter ctx))
 (def output (hum/create-gain ctx))
 
-(hum/connect vco vcf)
-(hum/connect vcf output)
+; connect the VCO to the VCF and on to the output gain node
+(hum/connect vco vcf output)
 
 (hum/start-osc vco)
 
