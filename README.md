@@ -23,7 +23,7 @@ Here's an example:
   (:require [hum.core :as hum])
 
 ; create a WebAudio contet
-(def ctx (hum/create-context))
+(defonce ctx (hum/create-context))
 
 ; create an oscilator, filter and amp
 (def vco (hum/create-osc ctx :sawtooth))
@@ -39,9 +39,10 @@ Here's an example:
 ; connect the amp to speakers
 (hum/connect-output amp)
 
-; set envelope for filter
-(hum/set-value-at vcf :frequency 100 (+ (hum/curr-time ctx) 0))
-(hum/linear-fade vcf :frequency 1000 (+ (hum/curr-time ctx) 10))
+; move filter frequency between values using an exponential envelope.
+(hum/trigger-env vcf :frequency 
+                 (hum/exponential-env [100 10000 1000 5000 100] [4 3 2 1])
+                 (hum/curr-time ctx))
 
 ; set envelope for amp
 (hum/set-value-at amp :gain 1 (+ (hum/curr-time ctx) 0))

@@ -32,6 +32,36 @@
 (defn set-gain-to [channel val]
   (set! (.-value (.-gain channel)) val))
 
+; envelope stuff
+
+(defn trigger-env
+  "Triggers envelopes in the form of [[curve-function value time]...]"
+  ([node param envelope time] 
+    (doall (map (fn [[f v t]] (apply f [node param v (+ time t)])) 
+                envelope))))
+
+(defn env-of-type
+  "Creates an envelope that transitions between times with func.
+  First time is set as start value hence times is shorter. 
+  All others interpolated between."
+
+  [func values times]
+  (cons [set-value-at (first values) 0]
+        (map (fn [value time] [func value time]) 
+             (rest values) times)))
+
+(defn linear-env      
+  "Creates a linear envelope."
+  [values times] (env-of-type linear-fade values times))
+
+(defn exponential-env 
+  "Creates an exponential envelope."
+  [values times] (env-of-type exponential-fade values times))
+
+(defn step-env
+  "Creates an envelope with stepped values."
+  [values times] (env-of-type set-value-at values times))
+
 (defn create-gain
   ([ctx]
      (create-gain ctx 0))
