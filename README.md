@@ -20,7 +20,8 @@ Add this to your requires in `project.clj`:
 Here's an example:
 ```clojure
 (ns myapp.core
-  (:require [hum.core :as hum])
+  (:require [hum.core :as hum]
+  	    [hum.envelope :as envelope])
 
 ; create a WebAudio contet
 (defonce ctx (hum/create-context))
@@ -40,9 +41,9 @@ Here's an example:
 (hum/connect-output amp)
 
 ; move filter frequency between values using an exponential envelope.
-(hum/trigger-env vcf :frequency 
-                 (hum/exponential-env [100 10000 1000 5000 100] [4 3 2 1])
-                 (hum/curr-time ctx))
+(envelope/trigger vcf :frequency 
+                  (envelope/exponential [100 10000 1000 5000 100] [4 3 2 1])
+                  (hum/curr-time ctx))
 
 ; set envelope for amp
 (hum/set-value-at amp :gain 1 (+ (hum/curr-time ctx) 0))
