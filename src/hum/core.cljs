@@ -9,14 +9,14 @@
        (set! (.-type osc) osc-type)
        osc)))
 
-(defn set-vale 
+(defn set-value 
   "Set nodes attribute."
   [node param value]
   (aset node (name param) "value" value))
 
-(defn set-value-at [node param value time]
+(defn set-value-at 
   "Set nodes param value at time."
-  [node param vale time]
+  [node param value time]
   (.setValueAtTime (aget node (name param)) value time))
 
 (defn linear-fade 
