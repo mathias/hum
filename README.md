@@ -40,11 +40,11 @@ Here's an example:
 (hum/connect-output amp)
 
 ; set envelope for filter
-(hum/set-value-at vcf :frequency 100 (+ (hum/curr-time ctx)) 0)
+(hum/set-value-at vcf :frequency 100 (+ (hum/curr-time ctx) 0))
 (hum/linear-fade vcf :frequency 1000 (+ (hum/curr-time ctx) 10))
 
 ; set envelope for amp
-(hum/set-value-at amp :gain 1 (+ (hum/curr-time ctx)) 0)
+(hum/set-value-at amp :gain 1 (+ (hum/curr-time ctx) 0))
 (hum/linear-fade amp :gain 0 (+ (hum/curr-time ctx) 10))
 ```
 
