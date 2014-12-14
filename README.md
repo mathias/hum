@@ -20,21 +20,34 @@ Add this to your requires in `project.clj`:
 Here's an example:
 ```clojure
 (ns myapp.core
-  (:require [hum.core :as hum])
+  (:require [hum.core :as hum]
+  	    [hum.envelope :as envelope])
 
-(def ctx (hum/create-context))
+; create a WebAudio contet
+(defonce ctx (hum/create-context))
+
+; create an oscilator, filter and amp
 (def vco (hum/create-osc ctx :sawtooth))
 (def vcf (hum/create-biquad-filter ctx))
-(def output (hum/create-gain ctx))
+(def amp (hum/create-gain ctx))
 
-; connect the VCO to the VCF and on to the output gain node
-(hum/connect vco vcf output)
+; connect them together in series
+(hum/connect vco vcf amp)
 
+; start the oscilator
 (hum/start-osc vco)
 
-(hum/connect-output output)
+; connect the amp to speakers
+(hum/connect-output amp)
 
-(hum/note-on output vco 440)
+; move filter frequency between values using an exponential envelope.
+(envelope/trigger vcf :frequency 
+                  (envelope/exponential [100 10000 1000 5000 100] [4 3 2 1])
+                  (hum/curr-time ctx))
+
+; set envelope for amp
+(hum/set-value-at amp :gain 1 (+ (hum/curr-time ctx) 0))
+(hum/linear-fade amp :gain 0 (+ (hum/curr-time ctx) 10))
 ```
 
 ## What now? / Contributing

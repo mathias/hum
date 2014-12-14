@@ -9,6 +9,26 @@
        (set! (.-type osc) osc-type)
        osc)))
 
+(defn set-value 
+  "Set nodes attribute."
+  [node param value]
+  (aset node (name param) "value" value))
+
+(defn set-value-at 
+  "Set nodes param value at time."
+  [node param value time]
+  (.setValueAtTime (aget node (name param)) value time))
+
+(defn linear-fade 
+  "Fade to nodes param value by time linearly."
+  [node param value time]
+  (.linearRampToValueAtTime (aget node (name param)) value time))
+
+(defn exponential-fade
+  "Fade to nodes param value by time exponentially."
+  [node param value time]
+  (.exponentialRampToValueAtTime (aget node (name param)) value time))
+
 (defn set-gain-to [channel val]
   (set! (.-value (.-gain channel)) val))
 
